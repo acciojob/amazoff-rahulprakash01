@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @Autowired
-    OrderService orderService;
+    OrderService orderService = new OrderService();
 
     @PostMapping("/add-order")
     public ResponseEntity<String> addOrder(@RequestBody Order order){
@@ -57,10 +57,10 @@ public class OrderController {
     @GetMapping("/get-partner-by-id/{partnerId}")
     public ResponseEntity<DeliveryPartner> getPartnerById(@PathVariable String partnerId){
 
-//        DeliveryPartner deliveryPartner = null;
+        DeliveryPartner deliveryPartner = null;
 
         //deliveryPartner should contain the value given by partnerId
-        DeliveryPartner deliveryPartner  = orderService.getPartnerById(partnerId);
+        deliveryPartner  = orderService.getPartnerById(partnerId);
         if (deliveryPartner  == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

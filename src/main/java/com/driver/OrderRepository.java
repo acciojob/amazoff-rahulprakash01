@@ -61,17 +61,26 @@ public class OrderRepository {
 
     public Integer findOrderCountByPartnerId(String partnerId){
         // your code here
+        if (partnerId == null || !partnerToOrderMap.containsKey(partnerId)) {
+            return 0; // Return 0 if partnerId is null or doesn't exist
+        }
         return partnerToOrderMap.getOrDefault(partnerId, new HashSet<>()).size();
     }
 
     public List<String> findOrdersByPartnerId(String partnerId){
         // your code here
+        if (partnerId == null || !partnerToOrderMap.containsKey(partnerId)) {
+            return new ArrayList<>(); // Return an empty list if partnerId is null or not found
+        }
         return new ArrayList<>(partnerToOrderMap.getOrDefault(partnerId, new HashSet<>()));
     }
 
     public List<String> findAllOrders(){
         // your code here
         // return list of all orders
+        if (orderMap == null || orderMap.isEmpty()) {
+            return new ArrayList<>(); // Return an empty list if no orders exist
+        }
         return new ArrayList<>(orderMap.keySet());
     }
 
